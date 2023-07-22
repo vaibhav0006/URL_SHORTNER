@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>URL Shortener</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+    }
+    input[type="text"] {
+      width: 300px;
+      padding: 10px;
+      margin-bottom: 10px;
+    }
+    button {
+      padding: 10px 20px;
+    }
+    .short-url {
+      margin-top: 20px;
+      font-weight: bold;
+    }
+    .analytics-container {
+      margin-top: 20px;
+      text-align: left;
+    }
+  </style>
+</head>
+<body>
+  <h1>URL Shortener</h1>
+  <form id="urlForm">
+    <input type="text" id="longUrlInput" placeholder="Paste your long URL here" />
+    <br />
+    <button type="submit">Shorten URL</button>
+  </form>
+  <div id="shortUrlContainer" class="short-url"></div>
+  <div id="analyticsContainer" class="analytics-container"></div>
+
+  <script>
+    const urlForm = document.getElementById("urlForm");
+    const longUrlInput = document.getElementById("longUrlInput");
+    const shortUrlContainer = document.getElementById("shortUrlContainer");
+    const analyticsContainer = document.getElementById("analyticsContainer");
+
+    urlForm.addEventListener("submit", async (event) => {
+      event.preventDefault();
+
+      const longUrl = longUrlInput.value;
+      if (!longUrl) {
+        alert("Please enter a URL");
+        return;
+      }
+
+      try {
+        const response = await fetch("http://localhost:8001/url", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ url: longUrl }),
+        });
+
+        if (!response.ok) {
+          const error = await response.json();
+          throw new Error(error.error);
+        }
+
+        const data = await response.json();
+        const shortUrl = "http://localhost:8001" + "/" + data.id;
+        shortUrlContainer.textContent = `Short URL: ${shortUrl}`;
+
+        const analyticsResponse = await fetch(`http://localhost:8001/url/analytics/${data.id}`);
+        if (analyticsResponse.ok) {
+          const analyticsData = await analyticsResponse.json();
+          displayAnalytics(analyticsData);
+        }
+      } catch (error) {
+        alert(error.message);
+      }
+    });
+
+    function displayAnalytics(analyticsData) {
+      const totalClicks = analyticsData.totalClicks;
+      const visitHistory = analyticsData.analytics;
+
+      let analyticsHTML = `<h2>Analytics</h2>`;
+      analyticsHTML += `<p>Total Clicks: ${totalClicks}</p>`;
+      analyticsHTML += `<ul>`;
+      visitHistory.forEach((visit) => {
+        const timestamp = new Date(visit.timestamp).toLocaleString();
+        analyticsHTML += `<li>${timestamp}</li>`;
+      });
+      analyticsHTML += `</ul>`;
+
+      analyticsContainer.innerHTML = analyticsHTML;
+    }
+  </script>
+</body>
+</html>
