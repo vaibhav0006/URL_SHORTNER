@@ -1,14 +1,14 @@
-# SpeedyChat
+# QuickShort
 
-The SpeedyChat is URL Shortener built using HTML, CSS, and JavaScript for the frontend, MongoDB as the database, and Express.js with Node.js for the backend. It allows users to submit long URLs and receive shortened versions that redirect to the original long URL when visited.
+The QuickShort is URL Shortener built using HTML, CSS, and JavaScript for the frontend, MongoDB as the database, and Express.js with Node.js for the backend. It allows users to submit long URLs and receive shortened versions that redirect to the original long URL when visited.
 
 ## Features
 
-- Shorten long URLs into easily shareable short links
-- Click analytics for tracking the number of times a short link is used
-- User-friendly web interface for easy interaction
-- Secure and efficient storage using MongoDB
-- RESTful API for programmatically creating and managing short links
+- Shorten long URLs into easily shareable short links.
+- Click analytics for tracking the number of times a short link is used.
+- User-friendly web interface for easy interaction.
+- Secure and efficient storage using MongoDB.
+- RESTful API for programmatically creating and managing short links.
 
 ## Getting Started
 
@@ -67,5 +67,5 @@ The API documentation for the URL shortener can be found [here](https://docs.git
 ## License
 This project is licensed under the MIT License.
 
-#Contact
+## Contact
 If you have any questions or need further assistance, you can contact the project maintainer at vaibhavrajput0006.com
