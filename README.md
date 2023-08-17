@@ -2,6 +2,10 @@
 
 The QuickShort is URL Shortener built using HTML, CSS, and JavaScript for the frontend, MongoDB as the database, and Express.js with Node.js for the backend. It allows users to submit long URLs and receive shortened versions that redirect to the original long URL when visited.
 
+# Demo
+
+https://github.com/vaibhav0006/URL_SHORTNER/assets/135981877/111cc375-b690-484d-bd9c-01b3e65b81e7
+
 ## Features
 
 - Shorten long URLs into easily shareable short links.
